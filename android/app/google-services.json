@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "893953208039",
+    "project_id": "minesweeper-a95dd",
+    "storage_bucket": "minesweeper-a95dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893953208039:android:0dde4979176d44561cbc42",
+        "android_client_info": {
+          "package_name": "com.example.minesweeper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmXQqaTkOcRK1o6K6YIGwzH5_BuiCrKaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
