@@ -44,6 +44,7 @@ class _MainScreenState extends State<MainScreen> {
       _resetTimer();
     }
     if (game.gameWon) {
+      if (passedSeconds < bestScore) bestScore = passedSeconds;
       insertNewScore(passedSeconds);
       retrieveData();
     }
@@ -131,12 +132,6 @@ class _MainScreenState extends State<MainScreen> {
         elevation: 0.0,
         centerTitle: true,
         title: Text("MineSweeper"),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.settings),
-          ),
-        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -211,7 +206,9 @@ class _MainScreenState extends State<MainScreen> {
             height: 500,
             padding: EdgeInsets.all(8.0),
             child: GridView.builder(
+                //grid layouts with a fixed number of tiles in the cross axis
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  //num of cells in a row
                   crossAxisCount: MineSweeperGame.row,
                   crossAxisSpacing: 4.0,
                   mainAxisSpacing: 4.0,
@@ -248,10 +245,6 @@ class _MainScreenState extends State<MainScreen> {
                               : game.gameMap[index].reveal
                                   ? "${game.gameMap[index].content}"
                                   : "",
-                          //'${game.gameMap[index].flagged ? "\u2691" : ""}${game.gameMap[index].reveal ? "${game.gameMap[index].content}" : ""}',
-                          /* game.gameMap[index].reveal
-                              ? "${game.gameMap[index].content}"
-                              : "", */
                           style: TextStyle(
                             color: game.gameMap[index].flagged
                                 ? Colors.white
@@ -261,12 +254,6 @@ class _MainScreenState extends State<MainScreen> {
                                         : AppColor.letterColors[
                                             game.gameMap[index].content]
                                     : Colors.transparent,
-                            /* game.gameMap[index].reveal
-                                ? game.gameMap[index].content == "X"
-                                    ? Colors.red
-                                    : AppColor.letterColors[
-                                        game.gameMap[index].content]
-                                : Colors.transparent, */
                             fontSize: 32.0,
                           ),
                         ),
@@ -279,7 +266,7 @@ class _MainScreenState extends State<MainScreen> {
             game.gameWon
                 ? "You Won! Best score: ${bestScore}"
                 : game.gameOver
-                    ? "You Lose"
+                    ? "You Lose! Best score: ${bestScore}"
                     : "",
             style: TextStyle(
               color: Colors.white,

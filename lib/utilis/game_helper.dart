@@ -1,15 +1,16 @@
 import 'dart:math';
 
 class MineSweeperGame {
-  static int row = 6;
-  static int col = 6;
+  static int row = 8;
+  static int col = 8;
   static int cells = row * col;
-  int numberOfMines = 2;
+  int numberOfMines = 5;
   int placedFlags = 0;
   int foundBombs = 0;
   bool gameOver = false;
   bool gameWon = false;
   List<Cell> gameMap = [];
+  var bombsCoordinates = Map<int, (int, int)>();
 
   static List<List<dynamic>> map = List.generate(row,
       (x) => List.generate(col, (y) => Cell(x, y, "", false, false, false)));
@@ -45,18 +46,22 @@ class MineSweeperGame {
         mineCol = random.nextInt(col);
       }
 
+      bombsCoordinates[i] = (mineRow, mineCol);
       map[mineRow][mineCol] = Cell(mineRow, mineCol, "X", false, false, true);
     }
   }
 
   void showMines() {
-    for (int i = 0; i < row; i++) {
+    /* for (int i = 0; i < row; i++) {
       for (int j = 0; j < col; j++) {
         if (map[i][j].content == "X") {
           map[i][j].reveal = true;
         }
       }
-    }
+    } */
+    bombsCoordinates.forEach(
+      (key, value) => map[value.$1][value.$2].reveal = true,
+    );
   }
 
   void getClickedCell(Cell cell) {
